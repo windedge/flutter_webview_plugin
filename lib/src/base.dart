@@ -20,6 +20,7 @@ class FlutterWebviewPlugin {
   final _onUrlChanged = new StreamController<String>.broadcast();
   final _onStateChanged = new StreamController<WebViewStateChanged>.broadcast();
   final _onError = new StreamController<String>.broadcast();
+  final _onBarcode = new StreamController<Null>.broadcast();
 
   static FlutterWebviewPlugin _instance;
 
@@ -43,6 +44,9 @@ class FlutterWebviewPlugin {
       case "onError":
         _onError.add(call.arguments);
         break;
+      case "onBarcode":
+        _onBarcode.add(null);
+        break;
     }
   }
 
@@ -56,6 +60,9 @@ class FlutterWebviewPlugin {
   /// content is Map for type: {shouldStart(iOS)|startLoad|finishLoad}
   /// more detail than other events
   Stream<WebViewStateChanged> get onStateChanged => _onStateChanged.stream;
+
+  /// on Barcode scan
+  Stream<Null> get onBarcode => _onBarcode.stream;
 
   /// Start the Webview with [url]
   /// - [withJavascript] enable Javascript or not for the Webview

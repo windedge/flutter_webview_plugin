@@ -23,6 +23,7 @@ import io.flutter.plugin.common.MethodChannel;
 class WebviewManager {
 
     boolean closed = false;
+
     WebView webView;
 
     WebviewManager(Activity activity) {
@@ -46,6 +47,7 @@ class WebviewManager {
                 return false;
             }
         });
+        webView.addJavascriptInterface(new BarcodeInterface(), "barcode");
 
         webView.setWebViewClient(webViewClient);
     }
